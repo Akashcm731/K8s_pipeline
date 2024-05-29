@@ -7,7 +7,6 @@ pipeline {
 		stage ('SCM checkout') {
 			steps {
 				git branch:'main', url:'https://github.com/asifkhazi/sonarqube-example.git'
-				sh 'mvn clean'
 			}
 		}
 		stage('SonarQube Analysis Stage') {
