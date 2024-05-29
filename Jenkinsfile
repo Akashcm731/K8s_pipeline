@@ -16,6 +16,7 @@ pipeline {
   				-Dsonar.projectName='sonarqube-example' \
  				-Dsonar.host.url=http://18.61.160.246:9000 \
   				-Dsonar.token=sqp_ab795445de9d3fdfa28f643b5d4688308f2f7c0f'''
+			}
         	}
 		stage ('Build and Create docker image') {
 			steps {
