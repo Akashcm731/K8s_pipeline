@@ -6,7 +6,7 @@ pipeline {
 	stages {
 		stage ('SCM checkout') {
 			steps {
-				git branch:'main', url:'https://github.com/asifkhazi/Petclinic.git'
+				git branch:'main', url:'https://github.com/asifkhazi/sonarqube-example.git'
 			}
 		}
 		stage('SonarQube Analysis Stage') {
