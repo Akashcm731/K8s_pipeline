@@ -11,13 +11,12 @@ pipeline {
 		}
 		stage('SonarQube Analysis Stage') {
                         steps{ 
-                             sh '''mvn clean verify sonar:sonar \
-                                  -Dsonar.projectKey=Petclinic \
-                                  -Dsonar.projectName='Petclinic' \
-                                  -Dsonar.host.url=http://18.61.160.246:9000 \
-                                  -Dsonar.token=sqp_31b8a133b5206e9adbb167d7cfd6cdb456e07645'''
-            		    }
-        }
+                             mvn clean verify sonar:sonar \
+  				-Dsonar.projectKey=sonarqube-example \
+  				-Dsonar.projectName='sonarqube-example' \
+ 				-Dsonar.host.url=http://18.61.160.246:9000 \
+  				-Dsonar.token=sqp_ab795445de9d3fdfa28f643b5d4688308f2f7c0f
+        	}
 		stage ('Build and Create docker image') {
 			steps {
 				sh 'docker build -t ${Docker_Cred_USR}/tomcatjar:${BUILD_ID} -f Dockerfile .'
