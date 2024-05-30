@@ -10,7 +10,7 @@ pipeline {
 			}
 		}
 		stage('SonarQube Analysis ') {
-   			 withSonarQubeEnv() {
+   			 steps {
      				 sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=sonarqube-example -Dsonar.projectName='sonarqube-example'"
    			 }
   		}
