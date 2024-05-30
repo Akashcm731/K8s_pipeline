@@ -12,10 +12,10 @@ pipeline {
 		stage('SonarQube Analysis Stage') {
                         steps{ 
                             sh '''mvn clean verify sonar:sonar \
-  				-Dsonar.projectKey=sonarqube-example \
-  				-Dsonar.projectName='sonarqube-example' \
- 				-Dsonar.host.url=http://18.61.160.246:9000 \
-  				-Dsonar.token=sqp_ab795445de9d3fdfa28f643b5d4688308f2f7c0f'''
+  					-Dsonar.projectKey=sonarqube-example \
+  					-Dsonar.projectName='sonarqube-example' \
+ 					-Dsonar.host.url=http://18.61.158.157:9000 \
+  					-Dsonar.token=sqp_f7d827a705cd0ce11b42d32bd64dea4437528176'''
 			}
         	}
 		stage ('Build and Create docker image') {
