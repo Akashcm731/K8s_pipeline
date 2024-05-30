@@ -37,7 +37,7 @@ pipeline {
 		}
 		stage ('Deploy') {
 			steps {
-				sh 'docker run --name cont-${BUILD_ID} ${Docker_Cred_USR}/tomcatjar:${BUILD_ID}'
+				sh 'docker run -itd --name cont-${BUILD_ID} -p 8080:8080 ${Docker_Cred_USR}/tomcatjar:${BUILD_ID}'
 			}
 		}
 		
