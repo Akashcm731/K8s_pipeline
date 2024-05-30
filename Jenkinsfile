@@ -11,7 +11,7 @@ pipeline {
 		}
 		stage('SonarQube Analysis ') {
    			 steps {
-     				 sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=sonarqube-example -Dsonar.projectName='sonarqube-example'"
+     				 sh "mvn clean verify sonar:sonar -Dsonar.projectKey=sonarqube-example -Dsonar.projectName='sonarqube-example'"
    			 }
   		}
 		stage ('Build and Create docker image') {
