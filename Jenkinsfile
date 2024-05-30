@@ -9,7 +9,7 @@ pipeline {
 				git branch:'main', url:'https://github.com/asifkhazi/sonarqube-example.git'
 			}
 		}
-		stage('SonarQube Analysis') {
+		stage('SonarQube Analysis ') {
    			 def mvn = tool 'Default Maven';
    			 withSonarQubeEnv() {
      				 sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=sonarqube-example -Dsonar.projectName='sonarqube-example'"
