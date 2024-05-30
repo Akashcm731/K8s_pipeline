@@ -3,7 +3,7 @@ WORKDIR /app
 COPY . .
 RUN mvn clean install
 
-FROM openjdk:9
+FROM artisantek/tomcat:1
 WORKDIR /app
-COPY --from=build /app/target/*.jar ./app.jar
-CMD ["java", "-jar", "app.jar"]
+COPY --from=build /app/target/*.war /usr/local/webapps/
+EXPOSE 8080
