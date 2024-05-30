@@ -9,15 +9,12 @@ pipeline {
 				git branch:'main', url:'https://github.com/asifkhazi/sonarqube-example.git'
 			}
 		}
-		stage('SonarQube Analysis Stage') {
-                        steps{ 
-                            sh '''mvn clean verify sonar:sonar \
-  					-Dsonar.projectKey=sonarqube-example \
-  					-Dsonar.projectName='sonarqube-example' \
- 					-Dsonar.host.url=http://18.61.158.157:9000 \
-  					-Dsonar.token=sqp_f7d827a705cd0ce11b42d32bd64dea4437528176'''
-			}
-        	}
+		stage('SonarQube Analysis') {
+   			 def mvn = tool 'Default Maven';
+   			 withSonarQubeEnv() {
+     				 sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=sonarqube-example -Dsonar.projectName='sonarqube-example'"
+   			 }
+  		}
 		stage ('Build and Create docker image') {
 			steps {
 				sh 'docker build -t ${Docker_Cred_USR}/tomcatjar:${BUILD_ID} -f Dockerfile .'
