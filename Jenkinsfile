@@ -10,18 +10,17 @@ pipeline {
 			}
 		}
 		stage('SonarQube analysis') {
-      			tools {
-        			sonarQube 'SonarQube Scanner 5.0.1.3006'
+      			environment {
+        			SCANNER_HOME = tool 'sonar-scanner'
       			}
       			steps {
         			withSonarQubeEnv('SonarQube Scanner') {
-          				sh 'sonar-scanner'
-					sh '''mvn clean verify sonar:sonar \
-  						-Dsonar.projectKey=sonarqube-example \
- 						-Dsonar.projectName='sonarqube-example' \
-  						-Dsonar.host.url=http://18.61.158.157:9000 \
-						-Dsonar.java.binaries=. \
-  						-Dsonar.token=sqp_f7d827a705cd0ce11b42d32bd64dea4437528176'''
+					sh 'mvn clean verify'
+					sh '''${SCANNER_HOME}/bin/sonar-scanner \
+                      				-Dsonar.projectKey=webapp \
+                      				-Dsonar.projectName='webapp' \
+                      				-Dsonar.host.url=http://18.60.48.152:9000 \
+                      				-Dsonar.token=sqp_48f8ec60a43aa9b05e9d8442e9a6392dae1e34e5'''
         			}
      			 }
     		}
