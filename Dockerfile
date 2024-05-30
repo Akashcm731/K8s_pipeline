@@ -5,5 +5,5 @@ RUN mvn clean install
 
 FROM artisantek/tomcat:1
 WORKDIR /app
-COPY --from=build /app/target/*.war /usr/local/webapps/
+COPY --from=build /app/target/*.war /usr/local/tomcat/webapps/
 EXPOSE 8080
