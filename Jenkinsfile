@@ -19,8 +19,8 @@ pipeline {
 					sh '''${SCANNER_HOME}/bin/sonar-scanner \
                       				-Dsonar.projectKey=sonarqube-example \
   						-Dsonar.projectName='sonarqube-example' \
-  						-Dsonar.host.url=http://98.130.11.208:9000 \
-  						-Dsonar.token=sqp_b83d7fa27677fdc04edd6998bb8bdbc0df76fe77'''
+  						-Dsonar.host.url=http://18.61.81.218:9000 \
+  						-Dsonar.token=sqp_f71a9634a9c08110611e0b17c404d423bb47bd41'''
         			}
      			 }
     		}
