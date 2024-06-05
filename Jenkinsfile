@@ -10,7 +10,7 @@ pipeline {
             		}
 			steps {
 				git branch:'main', url:'https://github.com/asifkhazi/sonarqube-example.git'
-				stash includes: '**/*.yaml', name: 'source'
+				stash(name: 'source', includes: '**/*.yaml')
 			}
 		}
 		/*stage('SonarQube analysis') {
