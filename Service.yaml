@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodeport-svc
+spec:
+  type: NodePort
+  selector:
+    webserver: tomcat
+  ports:
+    - targetPort: 8080
+      port: 8080
+      nodePort: 8080
