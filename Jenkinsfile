@@ -51,8 +51,9 @@ pipeline {
             		}
 			steps {
 				unstash 'source'
-				sh 'microk8s kubectl apply -f Deployment.yaml'
-				sh 'microk8s kubectl apply -f Service.yaml'
+				sh 'microk8s kubectl delete deploy tomcat-deploy'
+				sh 'microk8s kubectl delete svc nodeport-svc'
+				sh 'microk8s kubectl apply -f Deployment.yaml -f Service.yaml'
 			}
 		}
 		
