@@ -51,7 +51,7 @@ pipeline {
             		}
 			steps {
 				unstash 'source'
-				sh 'kubectl apply -f Deployment.yaml Service.yaml'
+				sh 'microk8s kubectl apply -f Deployment.yaml Service.yaml'
 			}
 		}
 		
