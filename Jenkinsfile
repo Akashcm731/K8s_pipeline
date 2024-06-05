@@ -1,15 +1,19 @@
 pipeline {
-	agent {label "new-node"}
+	agent any
 	environment {
 		Docker_Cred=credentials('docker_cred')
 	}
 	stages {
 		stage ('SCM checkout') {
+			agent {
+                		label 'new-node'
+            		}
 			steps {
 				git branch:'main', url:'https://github.com/asifkhazi/sonarqube-example.git'
+				stash includes: '*.yaml', name: 'source'
 			}
 		}
-		stage('SonarQube analysis') {
+		/*stage('SonarQube analysis') {
       			environment {
         			SCANNER_HOME = tool 'sonar-scanner'
       			}
@@ -23,21 +27,31 @@ pipeline {
   						-Dsonar.token=sqp_f71a9634a9c08110611e0b17c404d423bb47bd41'''
         			}
      			 }
-    		}
+    		}*/
 		stage ('Build and Create docker image') {
+            		agent {
+                		label 'new-node'
+            		}
 			steps {
 				sh 'docker build -t ${Docker_Cred_USR}/tomcatjar:${BUILD_ID} -f Dockerfile .'
 			}
 		}
 		stage ('Push image to artifactory') {
+             		agent {
+                		label 'new-node'
+            		}
 			steps {
 				sh 'docker login -u ${Docker_Cred_USR} -p ${Docker_Cred_PSW}'
 				sh 'docker push ${Docker_Cred_USR}/tomcatjar:${BUILD_ID}'
 			}
 		}
 		stage ('Deploy') {
+             		agent {
+                		label 'kubernetes'
+            		}
 			steps {
-				sh 'docker run -itd --name cont-${BUILD_ID} -p 8080:8080 ${Docker_Cred_USR}/tomcatjar:${BUILD_ID}'
+				unstash 'source'
+				sh 'kubectl apply -f Deployment.yaml Service.yaml'
 			}
 		}
 		
