@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tomcat-deploy
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      webserver: tomcat
+  template:
+    metadata:
+      name: tomcat-pod
+      labels:
+        webserver: tomcat
+    spec:
+      containers:
+        - name: tomcat-container
+          image: asifkhazi/tomcatjar:2
+          ports:
+          - containerPort: 8080
