@@ -13,7 +13,7 @@ pipeline {
 				stash(name: 'source', includes: '**/*.yaml')
 			}
 		}
-		/*stage('SonarQube analysis') {
+		stage('SonarQube analysis') {
       			environment {
         			SCANNER_HOME = tool 'sonar-scanner'
       			}
@@ -23,11 +23,11 @@ pipeline {
 					sh '''${SCANNER_HOME}/bin/sonar-scanner \
                       				-Dsonar.projectKey=sonarqube-example \
   						-Dsonar.projectName='sonarqube-example' \
-  						-Dsonar.host.url=http://18.61.81.218:9000 \
-  						-Dsonar.token=sqp_f71a9634a9c08110611e0b17c404d423bb47bd41'''
+  						-Dsonar.host.url=http://18.60.53.214:9000 \
+  						-Dsonar.token=sqp_0d50267cdaa1c16759bb40c0f255947615a0a786'''
         			}
      			 }
-    		}*/
+    		}
 		stage ('Build and Create docker image') {
             		agent {
                 		label 'new-node'
