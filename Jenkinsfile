@@ -14,6 +14,9 @@ pipeline {
 			}
 		}
 		stage('SonarQube analysis') {
+			agent {
+                		label 'new-node'
+            		}
       			environment {
         			SCANNER_HOME = tool 'sonar-scanner'
       			}
