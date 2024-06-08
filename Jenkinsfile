@@ -35,7 +35,7 @@ pipeline {
             		}
 			steps {
 				sh 'docker build -t ${Docker_Cred_USR}/tomcatjar:v1.${BUILD_ID} -f Dockerfile .'
-    				sh 'docker tag ${Docker_Cred_USR}/tomcatjar:latest'
+    				sh 'docker tag ${Docker_Cred_USR}/tomcatjar:v1.${BUILD_ID} ${Docker_Cred_USR}/tomcatjar:latest'
 			}
 		}
 		stage ('Push image to artifactory') {
