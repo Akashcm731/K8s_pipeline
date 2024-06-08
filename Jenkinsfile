@@ -25,7 +25,7 @@ pipeline {
 					sh 'mvn clean verify'
 					sh '''${SCANNER_HOME}/bin/sonar-scanner \
                       				-Dsonar.projectKey=sonarqube-example \
-  						-Dsonar.projectName='sonarqube-example' \'''
+  						-Dsonar.projectName=sonarqube-example'''
         			}
      			 }
     		}
