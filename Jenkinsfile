@@ -25,9 +25,7 @@ pipeline {
 					sh 'mvn clean verify'
 					sh '''${SCANNER_HOME}/bin/sonar-scanner \
                       				-Dsonar.projectKey=sonarqube-example \
-  						-Dsonar.projectName='sonarqube-example' \
-  						-Dsonar.host.url=http://18.60.53.214:9000 \
-  						-Dsonar.token=sqp_0d50267cdaa1c16759bb40c0f255947615a0a786'''
+  						-Dsonar.projectName='sonarqube-example' \'''
         			}
      			 }
     		}
@@ -36,7 +34,8 @@ pipeline {
                 		label 'new-node'
             		}
 			steps {
-				sh 'docker build -t ${Docker_Cred_USR}/tomcatjar:${BUILD_ID} -f Dockerfile .'
+				sh 'docker build -t ${Docker_Cred_USR}/tomcatjar:v1.${BUILD_ID} -f Dockerfile .'
+    				sh 'docker tag ${Docker_Cred_USR}/tomcatjar:latest'
 			}
 		}
 		stage ('Push image to artifactory') {
@@ -45,7 +44,8 @@ pipeline {
             		}
 			steps {
 				sh 'docker login -u ${Docker_Cred_USR} -p ${Docker_Cred_PSW}'
-				sh 'docker push ${Docker_Cred_USR}/tomcatjar:${BUILD_ID}'
+				sh 'docker push ${Docker_Cred_USR}/tomcatjar:v1.${BUILD_ID}'
+    				sh 'docker push ${Docker_Cred_USR}/tomcatjar:latest'
 			}
 		}
 		stage ('Deploy') {
