@@ -15,7 +15,7 @@ pipeline {
 		}
 		stage ('Build and Create docker image') {
             		agent {
-                		label 'new-node'
+                		label 'docker-env'
             		}
 			steps {
 				sh 'docker build -t ${Docker_Cred_USR}/tomcat:v1.${BUILD_ID} -f Dockerfile .'
@@ -24,7 +24,7 @@ pipeline {
 		}
 		stage ('Push image to artifactory') {
              		agent {
-                		label 'new-node'
+                		label 'docker-env'
             		}
 			steps {
 				sh 'docker login -u ${Docker_Cred_USR} -p ${Docker_Cred_PSW}'
