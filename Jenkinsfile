@@ -6,36 +6,20 @@ pipeline {
 	stages {
 		stage ('SCM checkout') {
 			agent {
-                		label 'new-node'
+                		label 'docker-env'
             		}
 			steps {
 				git branch:'main', url:'https://github.com/asifkhazi/sonarqube-example.git'
 				stash(name: 'source', includes: '**/*.yaml')
 			}
 		}
-		stage('SonarQube analysis') {
-			agent {
-                		label 'new-node'
-            		}
-      			environment {
-        			SCANNER_HOME = tool 'sonar-scanner'
-      			}
-      			steps {
-        			withSonarQubeEnv('SonarQubeServer') {
-					sh 'mvn clean verify'
-					sh '''${SCANNER_HOME}/bin/sonar-scanner \
-                      				-Dsonar.projectKey=sonarqube-example \
-  						-Dsonar.projectName=sonarqube-example'''
-        			}
-     			 }
-    		}
 		stage ('Build and Create docker image') {
             		agent {
                 		label 'new-node'
             		}
 			steps {
-				sh 'docker build -t ${Docker_Cred_USR}/tomcatjar:v1.${BUILD_ID} -f Dockerfile .'
-    				sh 'docker tag ${Docker_Cred_USR}/tomcatjar:v1.${BUILD_ID} ${Docker_Cred_USR}/tomcatjar:latest'
+				sh 'docker build -t ${Docker_Cred_USR}/tomcat:v1.${BUILD_ID} -f Dockerfile .'
+    				sh 'docker tag ${Docker_Cred_USR}/tomcat:v1.${BUILD_ID} ${Docker_Cred_USR}/tomcatjar:latest'
 			}
 		}
 		stage ('Push image to artifactory') {
@@ -54,8 +38,6 @@ pipeline {
             		}
 			steps {
 				unstash 'source'
-				sh 'microk8s kubectl delete deploy tomcat-deploy'
-				sh 'microk8s kubectl delete svc nodeport-svc'
 				sh 'microk8s kubectl apply -f Deployment.yaml -f Service.yaml'
 			}
 		}
