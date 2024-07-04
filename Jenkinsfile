@@ -7,7 +7,7 @@ pipeline {
 		stage ('SCM checkout') {
 			agent { label 'docker' }
 			steps {
-				git branch:'main', url:'https://github.com/Akashcm731/K8s_Pipeline_A.git'
+				git branch:'main', url:'https://github.com/Akashcm731/K8s_pipeline.git'
 				stash(name: 'source', includes: '**/*.yaml')
 			}
 		}
