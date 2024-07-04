@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
         - name: tomcat-container
-          image: asifkhazi/tomcat
+          image: akashcm/tomcat
           ports:
           - containerPort: 8080
