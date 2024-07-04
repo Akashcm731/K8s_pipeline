@@ -22,7 +22,7 @@ pipeline {
              		agent { label 'docker' }
 			steps {
 				sh 'docker login -u ${Docker_Cred_USR} -p ${Docker_Cred_PSW}'
-				sh 'docker push ${Docker_Cred_USR}/tomcat:v1.${BUILD_ID}'
+				sh 'docker push ${Docker_Cred_USR}/tomcat:${BUILD_ID}'
     				sh 'docker push ${Docker_Cred_USR}/tomcat:latest'
 			}
 		}
